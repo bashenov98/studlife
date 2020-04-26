@@ -57,7 +57,7 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f'{self.id}: {self.username}'
 
-class Organization(AbstractUser):
+class Organization(models.Model):
     name = models.CharField(max_length=150)
     description = models.TextField(default="")
     image = models.ImageField(upload_to='media/images',
