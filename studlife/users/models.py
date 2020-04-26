@@ -57,14 +57,17 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f'{self.id}: {self.username}'
 
-class Organization(models.Model):
+class Organization(AbstractUser):
     name = models.CharField(max_length=150)
     description = models.TextField(default="")
     image = models.ImageField(upload_to='media/images',
                               validators=[extension_validator,
                                           file_size_validator],
                               null=True, blank=True)
-    president = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    president = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.username
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -75,6 +78,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500)
     faculty = models.PositiveSmallIntegerField(choices=FACULTIES, default=FIT)
     organization = models.ForeignKey(Organization, on_delete=models.DO_NOTHING)
+
 
 
 

@@ -31,3 +31,12 @@ class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organization
         fields = '__all__'
+
+    def create(self, validated_data):
+        organization = Organization.objects.create_user(username=validated_data['username'])
+
+        organization.set_password(validated_data['password'])
+
+        organization.save()
+
+        return organization
