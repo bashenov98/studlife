@@ -7,6 +7,10 @@ from users.models import CustomUser, Organization
 from users.serializers import CustomUserSerializer, OrganizationSerializer
 # Create your views here.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> asd
 class UserCreateView(generics.CreateAPIView):
     permission_classes = (AllowAny, )
     authentication_classes = ()

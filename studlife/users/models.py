@@ -8,6 +8,10 @@ from django.core.mail import send_mail
 from utils.constants import FACULTIES, FIT, ISE
 from utils.validators import extension_validator, file_size_validator
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> asd
 class AbstractUser(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
 
@@ -51,12 +55,21 @@ class CustomUser(AbstractUser):
         default=False
     )
     EMAIL_FIELD = 'email'
+<<<<<<< HEAD
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+=======
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
+>>>>>>> asd
 
     def __str__(self):
         return f'{self.id}: {self.username}'
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> asd
 class Organization(models.Model):
     name = models.CharField(max_length=150)
     description = models.TextField(default="")
@@ -69,6 +82,10 @@ class Organization(models.Model):
     def __str__(self):
         return self.username
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> asd
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='media/images',

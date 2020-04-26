@@ -2,6 +2,10 @@ from rest_framework import serializers
 
 from users.models import CustomUser, Profile, Organization
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> asd
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -18,6 +22,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
         return user
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> asd
 class ProfileSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(read_only=True)
 
@@ -25,6 +33,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = '__all__'
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> asd
 class OrganizationSerializer(serializers.ModelSerializer):
     president = CustomUserSerializer(read_only=True)
 
@@ -39,4 +51,8 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
         organization.save()
 
+<<<<<<< HEAD
         return organization
+=======
+        return organization
+>>>>>>> asd

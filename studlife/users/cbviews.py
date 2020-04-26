@@ -7,6 +7,10 @@ from users.models import CustomUser
 from users.serializers import CustomUserSerializer
 # Create your views here.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> asd
 class UserCreateView(generics.CreateAPIView):
     permission_classes = (AllowAny, )
     authentication_classes = ()
@@ -15,4 +19,8 @@ class UserCreateView(generics.CreateAPIView):
         return CustomUser.objects.all()
 
     def get_serializer_class(self):
+<<<<<<< HEAD
         return CustomUserSerializer
+=======
+        return CustomUserSerializer
+>>>>>>> asd
