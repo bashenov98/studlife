@@ -18,12 +18,3 @@ class UserCreateView(generics.CreateAPIView):
         return CustomUserSerializer
 
 
-class OrganizationCreateView(generics.CreateAPIView):
-    permission_classes = (AllowAny, )
-    authentication_classes = ()
-
-    def get_queryset(self):
-        return Organization.objects.all()
-
-    def get_serializer_class(self):
-        return OrganizationSerializer

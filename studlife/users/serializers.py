@@ -19,24 +19,38 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return user
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer(read_only=True)
+    user_name = serializers.SerializerMethodField(read_only=True)
+    organization_name = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ('id', 'user_name', 'organization_name')
+
+    def get_user_name(self, obj):
+        return obj.user.name
+
+    def get_organization_name(self, obj):
+        return obj.organization.name
+
+class ProfileDetailedSerializer(serializers.ModelSerializer):
+    user = CustomUserSerializer(read_only=True)
+
+    class Meta(ProfileSerializer.Meta):
+        fields = ProfileSerializer.Meta.fields + ('avatar', 'bio', 'faculty')
+
 
 class OrganizationSerializer(serializers.ModelSerializer):
-    president = CustomUserSerializer(read_only=True)
+    president_name = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Organization
-        fields = '__all__'
+        fields = ('id', 'name', 'president_name')
 
-    def create(self, validated_data):
-        organization = Organization.objects.create_user(username=validated_data['username'])
+    def get_president_name(self, obj):
+        return obj.president.name
 
-        organization.set_password(validated_data['password'])
+class OrganizationDetailedSerializer(serializers.ModelSerializer):
+    president = CustomUserSerializer(read_only=True)
 
-        organization.save()
-
-        return organization
+    class Meta(OrganizationSerializer.Meta):
+        fields = OrganizationSerializer.Meta.fields + ('president', 'description', 'image')

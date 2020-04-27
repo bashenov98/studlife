@@ -1,5 +1,7 @@
 from django.urls import path, include
 from core.views.viewsets import PostViewSet, EventViewSet, CommentPostViewSet
+from core.views.fbv_views import posts, comments
+from core.views.cbv_views import PostDetailAPIView,PostCreateUpdateAPIView, PostListAPIView
 from rest_framework import routers
 
 
@@ -9,4 +11,8 @@ router.register('comments', CommentPostViewSet)
 router.register('events', EventViewSet)
 
 
-urlpatterns = [] + router.urls
+urlpatterns = [
+    path('posts', posts),
+    path('posts/<int:pk>/comments', comments),
+    path('posti/',PostListAPIView.as_view()),
+] + router.urls

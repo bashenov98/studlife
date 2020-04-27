@@ -29,7 +29,7 @@ class EventSerializer(serializers.ModelSerializer):
     def get_organization_name(self, obj):
         return obj.organization.name
 
-class EventDetailedSerializer(serializers.ModelSerializer):
+class EventDetailedSerializer(EventSerializer):
     organization = OrganizationSerializer(read_only=True)
 
     class Meta(EventSerializer.Meta):
