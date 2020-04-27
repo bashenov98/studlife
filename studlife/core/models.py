@@ -14,7 +14,7 @@ class Post(models.Model):
 
     created_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    object = PostManager()
+    objects = PostManager()
 
     class Meta:
         verbose_name = "Post"

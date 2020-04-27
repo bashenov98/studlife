@@ -55,4 +55,4 @@ class CommentPostDetailedSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(read_only=True)
 
     class Meta(CommentPostSerializer.Meta):
-        fields = CommentPostSerializer.Meta.fields + ('created_at')
+        fields = CommentPostSerializer.Meta.fields
