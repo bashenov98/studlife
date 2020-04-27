@@ -21,17 +21,6 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
             'max_length': _("Too many characters"),
         }
     )
-
-    objects = UserManager()
-
-    class Meta:
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
-        abstract = True
-
-
-class CustomUser(AbstractUser):
-    email = models.EmailField(unique=True)
     first_name = models.CharField(
         _('first_name'),
         max_length=30,
@@ -42,20 +31,47 @@ class CustomUser(AbstractUser):
         max_length=30,
         blank=True
     )
+    email = models.EmailField(
+        _('email'),
+        blank=True
+    )
     is_staff = models.BooleanField(
         _('staff status'),
         default=False
     )
-    is_student = models.BooleanField(
-        _('student status'),
-        default=False
+    is_active = models.BooleanField(
+        _('active'),
+        default=True
     )
-    EMAIL_FIELD = 'email'
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
-    def __str__(self):
-        return f'{self.id}: {self.username}'
+    objects = UserManager()
+
+    EMAIL_FIELD = 'email'
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
+
+    class Meta:
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
+        abstract = True
+
+    def clean(self):
+        super().clean()
+        self.email = self.__class__.objects.normalize_email(self.email)
+
+    def get_full_name(self):
+        full_name = '%s %s' % (self.first_name, self.last_name)
+        return full_name.strip()
+
+    def get_short_name(self):
+        return self.first_name
+
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class CustomUser(AbstractUser):
+    pass
 
 class Organization(models.Model):
     name = models.CharField(max_length=150)
@@ -77,7 +93,7 @@ class Profile(models.Model):
                               null=True, blank=True)
     bio = models.TextField(max_length=500)
     faculty = models.PositiveSmallIntegerField(choices=FACULTIES, default=FIT)
-    organization = models.ForeignKey(Organization, on_delete=models.DO_NOTHING)
+    organization = models.ForeignKey(Organization, null = True, on_delete=models.DO_NOTHING)
 
 
 

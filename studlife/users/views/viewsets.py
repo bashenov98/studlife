@@ -9,6 +9,10 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from users.models import Profile, Organization
 from users.serializers import ProfileSerializer, OrganizationSerializer, ProfileDetailedSerializer, OrganizationDetailedSerializer
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 class ProfileViewSet(viewsets.GenericViewSet):
     queryset = Profile.objects.all()
     permission_classes = (IsAuthenticated, )
@@ -20,6 +24,7 @@ class ProfileViewSet(viewsets.GenericViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        logger.info(f'profile of {self.profile.user} created')
         return serializer.data
 
 class OrganizationViewSet(viewsets.GenericViewSet):

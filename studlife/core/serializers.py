@@ -10,7 +10,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'owner_name')
 
     def get_owner_name(self, obj):
-        return obj.owner.username
+        return obj.owner.name
 
 class PostDetailedSerializer(serializers.ModelSerializer):
     owner = CustomUserSerializer(read_only=True)

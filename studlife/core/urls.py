@@ -6,13 +6,14 @@ from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register('posts', PostViewSet)
+router.register('postss', PostViewSet)
 router.register('comments', CommentPostViewSet)
 router.register('events', EventViewSet)
 
 
 urlpatterns = [
+
     path('posts', posts),
     path('posts/<int:pk>/comments', comments),
-    path('posti/',PostListAPIView.as_view()),
+    path('postcreate/',PostCreateUpdateAPIView.as_view()),
 ] + router.urls

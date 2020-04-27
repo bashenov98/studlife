@@ -1,13 +1,17 @@
 from rest_framework import serializers
 
-from users.models import CustomUser, Profile, Organization
+from users.models import Profile, Organization
+
+
+
+from core.models import CustomUser
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        fields = ('id', 'username', 'is_superuser', 'password',)
 
     def create(self, validated_data):
         user = CustomUser.objects.create_user(username=validated_data['username'])

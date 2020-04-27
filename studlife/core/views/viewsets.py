@@ -10,8 +10,8 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = (PostPermission, )
 
     def get_serializer_class(self):
-        if self.action == 'list':
-            return PostSerializer
+        # if self.action == 'list':
+        #     return PostSerializer
         return PostDetailedSerializer
 
     def perform_create(self, serializer):
