@@ -38,4 +38,5 @@ class OrganizationViewSet(viewsets.GenericViewSet):
 
     def perform_create(self, serializer):
         serializer.save(president=self.request.user)
+        logger.info(f'organization {self.organization.name} created')
         return serializer.data
